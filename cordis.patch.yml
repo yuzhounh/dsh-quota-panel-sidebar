@@ -1,6 +1,9 @@
-# dsh-quota-panel bundle patch: mounts the quota panel into a dsh profile.
-# Applied as a profile layer when this package is installed with
-# `dsh plugin --profile web add "github:owner/dsh-quota-panel"`.
+# dsh-quota-panel-sidebar bundle patch: mounts the quota panel into the
+# dsh sidebar foot (next to the Settings button) instead of the floating
+# shell.overlay corner. Applied as a profile layer when this package is
+# installed with
+# `dsh plugin --profile web add "github:yuzhounh/dsh-quota-panel-sidebar"`.
+# Requires the DSH sidebar slot patch (see docs/sidebar-patch.md).
 #
 # v0.5: the built-in catalog auto-discovers every provider whose standard
 # credential reference resolves (DEEPSEEK_API_KEY, OPENROUTER_API_KEY,
@@ -33,7 +36,7 @@
 
 - insert:
     - id: quota-panel
-      name: 'dsh-quota-panel'
+      name: 'dsh-quota-panel-sidebar'
       config:
         refreshMs: 60000
         # No explicit providers: the built-in catalog auto-discovers every

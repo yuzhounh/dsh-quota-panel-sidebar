@@ -1,7 +1,7 @@
 {
-  "name": "dsh-quota-panel",
-  "description": "Provider quota/balance widget for the dsh web surface: collapsed glanceable capsule expanding into a Harness-native card with a settings panel (provider visibility / refresh interval / warn thresholds), fed by a loopback Connection RPC channel whose host half proxies each provider with credentials that never reach the browser.",
-  "version": "0.9.1-rc.3",
+  "name": "dsh-quota-panel-sidebar",
+  "description": "Sidebar-mounted fork of dsh-quota-panel: the provider quota/balance widget lives next to the Settings button at the sidebar foot (collapses into a rail dot when the sidebar folds), cards are left/right-aligned to the Settings trigger, click-away-to-close, and provider rows are always alphabetically sorted by label. Tracked as a true GitHub fork of wenzetan/dsh-quota-panel — the fork's main branch mirrors upstream (one-click Sync fork), this sidebar product lives on the 'sidebar' branch and is rebuilt from src with upstream's toolchain.",
+  "version": "0.9.2",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -13,13 +13,16 @@
   "files": [
     "lib",
     "src",
-    "cordis.patch.yml"
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
     "prepack": "npm run build",
     "test": "node scripts/test-page-script.mjs",
-    "check": "npm run build && npm test"
+    "check": "npm run build && npm test",
+    "check:syntax": "node --check lib/index.js && node --check lib/client.js"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
@@ -50,11 +53,14 @@
     "quota",
     "balance",
     "usage",
+    "sidebar",
     "opencode"
   ],
   "license": "MIT",
+  "author": "yuzhounh",
+  "homepage": "https://github.com/yuzhounh/dsh-quota-panel-sidebar#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wenzetan/dsh-quota-panel.git"
+    "url": "git+https://github.com/yuzhounh/dsh-quota-panel-sidebar.git"
   }
 }

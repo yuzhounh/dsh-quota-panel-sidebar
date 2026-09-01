@@ -1,0 +1,66 @@
+name: release
+
+# 打 v* tag 即发布：构建 + 校验 lib 为最新 → GitHub Release（可选同步 npm）
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dev dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build (src/*.ts -> lib/)
+        run: npm run build
+      - name: Committed artifacts are current
+        run: |
+          git diff --exit-code -- lib/ || {
+            echo "::error::lib/ is stale — run 'npm run build' and commit the rebuilt artifacts"
+            exit 1
+          }
+      - name: Syntax check (defense in depth)
+        run: node --check lib/index.js && node --check lib/client.js
+
+  release:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+
+  publish-npm:
+    needs: check
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+      # 校验 package.json 版本与 tag 一致（v1.2.3 -> 1.2.3）
+      - name: Version sanity
+        run: |
+          TAG=${GITHUB_REF_NAME#v}
+          PKG=$(node -p "require('./package.json').version")
+          test "$TAG" = "$PKG" || { echo "tag $TAG != package $PKG"; exit 1; }
+      - name: Publish to npm (latest)
+        if: ${{ env.NODE_AUTH_TOKEN != '' }}
+        run: npm publish --access public
