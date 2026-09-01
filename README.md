@@ -32,6 +32,7 @@ yuzhounh/dsh-quota-panel-sidebar
 - 上游更新 → 在你的 fork 页点 **Sync fork** → `main` 拿到新代码。
 - 把 `main` 合并进 `sidebar`（`git merge main`，冲突通常只出现在 `src/client.ts` / `src/index.ts` 的 CSS 与挂载点上），再 `npm run build` 重编产物即可。
 - 本分支代码版本独立（当前 `0.9.2`），与上游的 `-rc` 自动打标互不干扰。
+- 完整操作手册见 [docs/sync.md](docs/sync.md)。
 
 ## 与上游的差异（sidebar 分支 v0.9.2）
 
