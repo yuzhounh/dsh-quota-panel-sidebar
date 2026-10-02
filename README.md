@@ -1,18 +1,20 @@
 <p align="center">
-  <img src="docs/assets/money-bag-icon.png" alt="DSH Quota Panel Sidebar" width="128" height="128">
+  <img src="docs/assets/money-bag-icon.png" width="112" alt="DSH Quota Panel Sidebar logo">
 </p>
 
-<h1 align="center">dsh-quota-panel-sidebar</h1>
+<h1 align="center">DSH Quota Panel Sidebar</h1>
 
-<p align="center"><strong>DeepSeek Harness 侧栏额度与余额面板</strong></p>
+<p align="center"><strong>DeepSeek Harness 侧栏额度与余额面板，支持折叠协同与供应商排序。</strong></p>
 
 <p align="center">
-  <a href="https://github.com/yuzhounh/dsh-quota-panel-sidebar/releases/tag/v0.9.2"><img src="https://img.shields.io/badge/version-v0.9.2-0969da" alt="version v0.9.2"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-d4a900" alt="MIT License"></a>
-  <img src="https://img.shields.io/badge/sync-true%20fork%20of%20dsh--quota--panel-2da44e" alt="true fork of dsh-quota-panel">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-f59e0b?style=flat" alt="License: MIT"></a>
+  <a href="https://github.com/yuzhounh/dsh-quota-panel-sidebar/tree/sidebar"><img src="https://img.shields.io/badge/Branch-sidebar-2da44e?style=flat" alt="Branch: sidebar"></a>
+  <img src="https://img.shields.io/badge/TypeScript-DSH%20plugin-3178c6?style=flat&amp;logo=typescript&amp;logoColor=white" alt="TypeScript: DSH plugin">
 </p>
 
----
+<p align="center">
+  <a href="https://github.com/yuzhounh/dsh-quota-panel-sidebar/tree/sidebar">产品分支</a> · <a href="#安装">快速开始</a> · <a href="LICENSE">开源协议</a>
+</p>
 
 `dsh-quota-panel-sidebar` 是一个 DSH Web 插件，将模型供应商的额度、余额与用量面板挂载在侧栏底部的“设置”按钮旁。面板随侧栏折叠，在展开态与“新会话”和“设置”按钮保持一致的左右边界，并支持点击外部自动收起。
 
@@ -34,7 +36,7 @@ yuzhounh/dsh-quota-panel-sidebar
 - 本分支代码版本独立（当前 `0.9.2`），与上游的 `-rc` 自动打标互不干扰。
 - 完整操作手册见 [docs/sync.md](docs/sync.md)。
 
-## 与上游的差异（sidebar 分支 v0.9.2）
+## 与上游的差异（sidebar 分支）
 
 | 改动 | 说明 |
 | --- | --- |
@@ -51,13 +53,13 @@ yuzhounh/dsh-quota-panel-sidebar
 
 ## 安装
 
-```sh
-# 锁定发布 tag（推荐）
-dsh plugin --profile web add "github:yuzhounh/dsh-quota-panel-sidebar#v0.9.2"
+当前仓库尚未发布 `v0.9.2` tag 或 GitHub Release。安装定制版时需要明确选择 `sidebar` 开发分支，并先核对下方的侧栏槽位兼容要求；`main` 是上游镜像。
 
-# 或跟随 sidebar 分支（不推荐，未经发布门禁）
+```sh
 dsh plugin --profile web add "github:yuzhounh/dsh-quota-panel-sidebar#sidebar"
 ```
+
+正式发布后，可将 `#sidebar` 替换为发布页中实际存在的版本 tag，以固定安装版本。
 
 安装后**重启 `dsh web`**（host 半的 bundle patch 与 client 模块图在启动时合成），然后刷新 `http://127.0.0.1:3080`。
 
@@ -81,6 +83,6 @@ dsh plugin --profile web add "github:yuzhounh/dsh-quota-panel-sidebar#sidebar"
 - 通道：push `v*` tag → `.github/workflows/release.yml` 自动建 GitHub Release（先构建并校验 `lib/` 为最新）；配置 `NPM_TOKEN` secret 后同步发布 npm
 - 同步清单：上游更新 → fork 页 Sync fork → `git merge main`（在 `sidebar` 分支）→ `npm run build` → 提交
 
-## License
+## 开源协议
 
 MIT — 与上游一致。见 [LICENSE](LICENSE)。
